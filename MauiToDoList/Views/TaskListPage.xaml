@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MauiToDoList.Views.TaskListPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MauiToDoList.ViewModels"
+    Title="TaskListPage"
+    x:DataType="vm:TaskListPageViewModel"
+    Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions=".09*, .05*, .79*, .07*" RowSpacing="10">
+        <Frame BackgroundColor="Black">
+            <HorizontalStackLayout HorizontalOptions="Start" Spacing="10">
+                <Image
+                    HeightRequest="30"
+                    Source="todolist.png"
+                    WidthRequest="30" />
+                <Label
+                    FontSize="30"
+                    HorizontalTextAlignment="Center"
+                    Text="TASK LIST"
+                    TextColor="White" />
+            </HorizontalStackLayout>
+        </Frame>
+
+        <Grid
+            Grid.Row="1"
+            ColumnDefinitions="Auto, Auto, Auto"
+            ColumnSpacing="15"
+            HorizontalOptions="Center">
+            <Frame
+                Padding="8,6"
+                BackgroundColor="Black"
+                CornerRadius="50"
+                WidthRequest="100">
+                <Label
+                    FontSize="20"
+                    Text="COMPLETED"
+                    TextColor="White" />
+            </Frame>
+
+            <Frame
+                Grid.Column="1"
+                Padding="8,6"
+                BackgroundColor="Black"
+                CornerRadius="50"
+                WidthRequest="100">
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label
+                        FontSize="20"
+                        HorizontalTextAlignment="Center"
+                        Text="TO DO"
+                        TextColor="White" />
+                </HorizontalStackLayout>
+            </Frame>
+
+            <Frame
+                Grid.Column="2"
+                Padding="8,7"
+                BackgroundColor="Black"
+                CornerRadius="50"
+                WidthRequest="100">
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label
+                        FontSize="19"
+                        HorizontalTextAlignment="Center"
+                        Text="IMPORTANT"
+                        TextColor="White" />
+                </HorizontalStackLayout>
+            </Frame>
+        </Grid>
+
+        <CollectionView
+            Grid.Row="2"
+            ItemsSource="{Binding Tasks}"
+            SelectionMode="None">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame
+                        Margin="10"
+                        Padding="15"
+                        BorderColor="Black"
+                        CornerRadius="20">
+
+                        <VerticalStackLayout Spacing="10">
+
+                            <Grid ColumnDefinitions="*,Auto">
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="18"
+                                    Text="{Binding TaskName}" />
+
+                                <Image
+                                    Grid.Column="1"
+                                    Source="dots.png"
+                                    WidthRequest="20" />
+                            </Grid>
+
+                            <HorizontalStackLayout Spacing="8">
+                                <BoxView
+                                    CornerRadius="5"
+                                    HeightRequest="10"
+                                    WidthRequest="10"
+                                    Color="LightPink" />
+
+                                <Label FontAttributes="Bold" Text="{Binding Status}" />
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout Spacing="6">
+                                <Image Source="calendar.png" WidthRequest="18" />
+
+                                <Label FontSize="12" Text="{Binding DateCreated, StringFormat='{0:MM-d-yyyy h:mm tt}'}" />
+                            </HorizontalStackLayout>
+
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        <Grid Grid.Row="3" BackgroundColor="Black">
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <ImageButton
+                    Command="{Binding AddSampleTaskCommand}"
+                    HeightRequest="50"
+                    Source="plus.png"
+                    WidthRequest="45" />
+            </HorizontalStackLayout>
+        </Grid>
+    </Grid>
+
+</ContentPage>
