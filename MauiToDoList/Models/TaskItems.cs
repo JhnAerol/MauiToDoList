@@ -1,4 +1,5 @@
-﻿using MauiToDoList.Models.Enums;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using MauiToDoList.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,14 @@ using System.Threading.Tasks;
 
 namespace MauiToDoList.Models;
 
-public class TaskItems
+public partial class TaskItems : ObservableObject
 {
-    public string TaskName { get; set; }
-    public EnumStatus Status { get; set; }
-    public DateTime DateCreated { get; set; }
+    [ObservableProperty]
+    private string taskName;
+    [ObservableProperty]
+    private EnumStatus status;
+    [ObservableProperty]
+    private DateTime dateCreated;
+    [ObservableProperty]
+    private ImageSource imageUrl;
 }

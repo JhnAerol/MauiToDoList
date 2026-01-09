@@ -15,14 +15,24 @@ public partial class TaskListPageViewModel : ObservableObject
 {
     public ObservableCollection<TaskItems> Tasks { get; } = new();
 
+    [ObservableProperty]
+    private string tasknames;
+
     [RelayCommand]
-    void AddSampleTask()
+    void AddTask()
     {
         Tasks.Add(new TaskItems
         {
-            TaskName = "MAKE A BREAKFAST",
-            Status = EnumStatus.Important,
-            DateCreated = new DateTime(2026, 1, 3, 21, 20, 16)
+            TaskName = Tasknames,
+            Status = EnumStatus.ToDo,
+            ImageUrl = "yellow.png",
+            DateCreated = DateTime.Now
         });
+    }
+
+    [RelayCommand]
+    void UpdateStatus()
+    {
+
     }
 }
