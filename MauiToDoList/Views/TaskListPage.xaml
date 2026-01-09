@@ -9,7 +9,7 @@
     Shell.NavBarIsVisible="False">
 
     <Grid RowDefinitions=".09*, .05*, .79*, .07*" RowSpacing="10">
-        <Frame BackgroundColor="Black">
+        <Frame BackgroundColor="Black" Padding="10">
             <HorizontalStackLayout HorizontalOptions="Start" Spacing="10">
                 <Image
                     HeightRequest="30"
@@ -29,19 +29,19 @@
             ColumnSpacing="15"
             HorizontalOptions="Center">
             <Frame
-                Padding="8,6"
+                Padding="7,5"
                 BackgroundColor="Black"
                 CornerRadius="50"
                 WidthRequest="100">
                 <Label
-                    FontSize="20"
+                    FontSize="18"
                     Text="COMPLETED"
                     TextColor="White" />
             </Frame>
 
             <Frame
                 Grid.Column="1"
-                Padding="8,6"
+                Padding="8,4"
                 BackgroundColor="Black"
                 CornerRadius="50"
                 WidthRequest="100">
@@ -56,13 +56,13 @@
 
             <Frame
                 Grid.Column="2"
-                Padding="8,7"
+                Padding="8,5"
                 BackgroundColor="Black"
                 CornerRadius="50"
                 WidthRequest="100">
                 <HorizontalStackLayout HorizontalOptions="Center">
                     <Label
-                        FontSize="19"
+                        FontSize="18"
                         HorizontalTextAlignment="Center"
                         Text="IMPORTANT"
                         TextColor="White" />

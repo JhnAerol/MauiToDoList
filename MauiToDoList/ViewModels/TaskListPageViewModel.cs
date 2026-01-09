@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiToDoList.Models;
+using MauiToDoList.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,7 +21,7 @@ public partial class TaskListPageViewModel : ObservableObject
         Tasks.Add(new TaskItems
         {
             TaskName = "MAKE A BREAKFAST",
-            Status = "IMPORTANT",
+            Status = EnumStatus.Important,
             DateCreated = new DateTime(2026, 1, 3, 21, 20, 16)
         });
     }
