@@ -96,7 +96,7 @@
                                     Text="{Binding TaskName}" />
 
                                 <Image
-                                    Grid.Column="2"
+                                    Grid.Column="2" 
                                     Source="dots.png"
                                     WidthRequest="20" />
                             </Grid>
