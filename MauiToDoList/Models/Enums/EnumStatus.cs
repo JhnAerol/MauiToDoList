@@ -10,6 +10,7 @@ namespace MauiToDoList.Models.Enums
     {
         Completed,
         ToDo,
-        Important
+        Important,
+        Archived
     }
 }

@@ -3,6 +3,7 @@
     x:Class="MauiToDoList.Views.TaskListPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:enums="clr-namespace:MauiToDoList.Models.Enums"
     xmlns:model="clr-namespace:MauiToDoList.Models"
     xmlns:vm="clr-namespace:MauiToDoList.ViewModels"
     Title="TaskListPage"
@@ -27,7 +28,15 @@
                     Margin="130,0,0,0"
                     HeightRequest="40"
                     Source="archive.png"
-                    WidthRequest="40" />
+                    WidthRequest="40">
+
+
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OpenArchivePage" />
+                    </Image.GestureRecognizers>
+
+
+                </Image>
             </HorizontalStackLayout>
         </Frame>
 
@@ -38,44 +47,118 @@
             ColumnSpacing="15"
             HorizontalOptions="Center">
             <Frame
+                x:Name="CompletedFilterFrame"
                 Padding="7,5"
                 BackgroundColor="Black"
                 CornerRadius="50"
                 WidthRequest="100">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding FilterCommand}"
+                        CommandParameter="{x:Static enums:EnumStatus.Completed}"
+                        Tapped="OnTapCompletedFilter" />
+                </Frame.GestureRecognizers>
+
                 <Label
                     FontSize="18"
                     Text="COMPLETED"
                     TextColor="White" />
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup Name="CommonStates">
+
+                        <VisualState Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="Black" />
+                            </VisualState.Setters>
+                        </VisualState>
+
+                        <VisualState Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="LightGray" />
+                            </VisualState.Setters>
+                        </VisualState>
+
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
             </Frame>
 
             <Frame
+                x:Name="TodoFilterFrame"
                 Grid.Column="1"
                 Padding="8,4"
                 BackgroundColor="Black"
                 CornerRadius="50"
                 WidthRequest="100">
-                <HorizontalStackLayout HorizontalOptions="Center">
-                    <Label
-                        FontSize="20"
-                        HorizontalTextAlignment="Center"
-                        Text="TO DO"
-                        TextColor="White" />
-                </HorizontalStackLayout>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding FilterCommand}"
+                        CommandParameter="{x:Static enums:EnumStatus.ToDo}"
+                        Tapped="OnTapTodoFilter" />
+                </Frame.GestureRecognizers>
+
+                <Label
+                    FontSize="20"
+                    HorizontalTextAlignment="Center"
+                    Text="TO DO"
+                    TextColor="White" />
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup Name="CommonStates">
+
+                        <VisualState Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="Black" />
+                            </VisualState.Setters>
+                        </VisualState>
+
+                        <VisualState Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="LightGray" />
+                            </VisualState.Setters>
+                        </VisualState>
+
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
             </Frame>
 
             <Frame
+                x:Name="ImportantFilterFrame"
                 Grid.Column="2"
                 Padding="8,5"
                 BackgroundColor="Black"
                 CornerRadius="50"
                 WidthRequest="100">
-                <HorizontalStackLayout HorizontalOptions="Center">
-                    <Label
-                        FontSize="18"
-                        HorizontalTextAlignment="Center"
-                        Text="IMPORTANT"
-                        TextColor="White" />
-                </HorizontalStackLayout>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding FilterCommand}"
+                        CommandParameter="{x:Static enums:EnumStatus.Important}"
+                        Tapped="OnTapImportantFilter" />
+                </Frame.GestureRecognizers>
+
+                <Label
+                    FontSize="18"
+                    HorizontalTextAlignment="Center"
+                    Text="IMPORTANT"
+                    TextColor="White" />
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup Name="CommonStates">
+
+                        <VisualState Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="Black" />
+                            </VisualState.Setters>
+                        </VisualState>
+
+                        <VisualState Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="LightGray" />
+                            </VisualState.Setters>
+                        </VisualState>
+
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
             </Frame>
         </Grid>
 
@@ -253,7 +336,7 @@
                     <Label
                         FontSize="20"
                         HorizontalOptions="Center"
-                        Text="DELETE">
+                        Text="ARCHIVE">
 
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Tapped="DeleteButton" />
@@ -333,52 +416,125 @@
                         RowSpacing="10"
                         VerticalOptions="Center">
                         <Frame
+                            x:Name="CompletedFrame"
                             Padding="7,5"
                             BackgroundColor="Black"
                             CornerRadius="50"
                             WidthRequest="100">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding SelectStatusCommand}"
+                                    CommandParameter="{x:Static enums:EnumStatus.Completed}"
+                                    Tapped="OnCompletedTapped" />
+                            </Frame.GestureRecognizers>
+
                             <Label
                                 FontSize="18"
                                 Text="COMPLETED"
                                 TextColor="White" />
+
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="CommonStates">
+
+                                    <VisualState Name="Normal">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="Black" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="LightGray" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
                         </Frame>
 
                         <Frame
+                            x:Name="TodoFrame"
                             Grid.Column="1"
                             Padding="8,4"
                             BackgroundColor="Black"
                             CornerRadius="50"
                             WidthRequest="100">
-                            <HorizontalStackLayout HorizontalOptions="Center">
-                                <Label
-                                    FontSize="20"
-                                    HorizontalTextAlignment="Center"
-                                    Text="TO DO"
-                                    TextColor="White" />
-                            </HorizontalStackLayout>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding SelectStatusCommand}"
+                                    CommandParameter="{x:Static enums:EnumStatus.ToDo}"
+                                    Tapped="OnTodoTapped" />
+                            </Frame.GestureRecognizers>
+
+                            <Label
+                                FontSize="20"
+                                HorizontalTextAlignment="Center"
+                                Text="TO DO"
+                                TextColor="White" />
+
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="CommonStates">
+
+                                    <VisualState Name="Normal">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="Black" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="LightGray" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
                         </Frame>
 
                         <Frame
+                            x:Name="ImportantFrame"
                             Grid.Row="1"
                             Grid.ColumnSpan="2"
                             Padding="8,5"
                             BackgroundColor="Black"
                             CornerRadius="50"
                             WidthRequest="100">
-                            <HorizontalStackLayout HorizontalOptions="Center">
-                                <Label
-                                    FontSize="18"
-                                    HorizontalTextAlignment="Center"
-                                    Text="IMPORTANT"
-                                    TextColor="White" />
-                            </HorizontalStackLayout>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding SelectStatusCommand}"
+                                    CommandParameter="{x:Static enums:EnumStatus.Important}"
+                                    Tapped="OnImportantTapped" />
+                            </Frame.GestureRecognizers>
+                            <Label
+                                FontSize="18"
+                                HorizontalTextAlignment="Center"
+                                Text="IMPORTANT"
+                                TextColor="White" />
+
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="CommonStates">
+
+                                    <VisualState Name="Normal">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="Black" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="LightGray" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
                         </Frame>
                     </Grid>
 
                     <Button
                         BackgroundColor="Black"
                         BorderWidth="2"
-                        Clicked="CancelButton"
+                        Clicked="ConfirmUpdateButton"
                         CornerRadius="12"
                         FontAttributes="Bold"
                         FontSize="18"
@@ -415,10 +571,17 @@
 
         </Grid>
 
+        <Grid
+            x:Name="deleteConfirmationOverlay"
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            BackgroundColor="#80000000"
+            IsVisible="False" />
+
         <Grid Grid.Row="3" BackgroundColor="Black">
             <HorizontalStackLayout HorizontalOptions="Center">
                 <ImageButton
-                    Clicked="ImageButton_Clicked"
+                    Clicked="AddTaskButton"
                     HeightRequest="50"
                     Source="plus.png"
                     WidthRequest="45" />
